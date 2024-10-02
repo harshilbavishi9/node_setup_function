@@ -1,0 +1,16 @@
+export const errorMessages = {
+  USER_NOT_FOUND: 'User not found.',
+  WRONG_PASSWORD: 'Wrong password.',
+  USER_ALREADY_EXISTS: 'User already exists.',
+  FAILED_TO_SEND_EMAIL: 'Failed to send email',
+  SOMETHING_WENT_WRONG: 'Something went wrong!',
+  USER_FETCH_SUCCESS: 'User fetched successfully.',
+  UNAUTHORIZED_ACCESS: 'Wrong authorization token.',
+  USERS_FETCH_SUCCESS: 'Users fetched successfully.',
+  USER_LOGIN_SUCCESS: 'User logged in successfully.',
+  INVALID_PAGE_OR_LIMIT: 'Invalid page or limit value',
+  USER_REGISTER_SUCCESS: 'User registered successfully.',
+  AUTHORIZATION_TOKEN_MISSING: 'Authorization token is missing.',
+  GENERIC_ERROR: 'An unexpected error occurred. Please try again later.',
+  INVALID_FILE: 'Invalid file type. Only JPEG, PNG, and GIF are allowed.',
+};

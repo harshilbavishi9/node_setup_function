@@ -1,5 +1,6 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
+import { errorMessages } from './errorMessages';
 
 interface EmailOptions {
   to: string;
@@ -39,6 +40,6 @@ export const sendEmail = async (options: EmailOptions): Promise<void> => {
     await transporter.sendMail(mailOptions);
   } catch (error) {
     console.log(error);
-    throw new Error('Failed to send email');
+    throw new Error(errorMessages.FAILED_TO_SEND_EMAIL);
   }
 };

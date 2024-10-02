@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { User } from '../entities/userEntity';
 import { getRepository } from 'typeorm';
 import { errorCodes } from './errorCodes';
+import { errorMessages } from './errorMessages';
 
 const accessTokenSecret: string = (process.env.PORT || 'vjft84gifgnierwr83rsnvsijerhwe9ureth34fn') as string;
 const expiresIn: string = (process.env.EXPIRES_IN || '1h') as string;
@@ -45,7 +46,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     token = token?.startsWith('Bearer ') ? token.slice(7) : token;
 
     if (!token) {
-      return res.status(errorCodes.UNAUTHORIZED_ACCESS).json({ message: 'Authorization token is missing.' });
+      return res.status(errorCodes.UNAUTHORIZED_ACCESS).json({ message: errorMessages.AUTHORIZATION_TOKEN_MISSING });
     }
 
     const decoded = await decrypt(token);
@@ -61,12 +62,12 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     const user = await userRepository.findOne({ where: { id } });
 
     if (!user) {
-      return res.status(errorCodes.UNAUTHORIZED_ACCESS).json({ message: 'Wrong authorization token.' });
+      return res.status(errorCodes.UNAUTHORIZED_ACCESS).json({ message: errorMessages.UNAUTHORIZED_ACCESS });
     }
 
     next();
   } catch (error) {
     console.log(error);
-    return res.status(errorCodes.SERVER_ERROR).json({ message: 'Wrong authorization token.' });
+    return res.status(errorCodes.SERVER_ERROR).json({ message: errorMessages.UNAUTHORIZED_ACCESS });
   }
 };

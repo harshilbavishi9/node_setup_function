@@ -1,7 +1,8 @@
-import multer, { StorageEngine } from 'multer';
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 import { Request } from 'express';
+import multer, { StorageEngine } from 'multer';
+import { errorMessages } from './errorMessages';
 
 if (!fs.existsSync('./upload')) {
   fs.mkdirSync('./upload');
@@ -26,7 +27,7 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
   if (isValid) {
     cb(null, true);
   } else {
-    cb(new Error('Invalid file type. Only JPEG, PNG, and GIF are allowed.'), false);
+    cb(new Error(errorMessages.INVALID_FILE), false);
   }
 };
 

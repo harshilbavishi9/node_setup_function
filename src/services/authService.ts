@@ -6,6 +6,7 @@ import { User } from '../entities/userEntity';
 import { sendEmail } from '../utils/nodemailer';
 import { otpTemplate } from '../utils/templates';
 import { errorCodes } from '../utils/errorCodes';
+import { errorMessages } from '../utils/errorMessages';
 import { encryptPassword, comparePassword } from '../utils/password';
 
 export const authService = {
@@ -15,20 +16,14 @@ export const authService = {
 
     const existingUser = await userRepository.findOne({ where: { email: userData.email } });
     if (existingUser) {
-      return { error: 'User already exists.', code: errorCodes.ALREADY_EXISTS };
+      return { error: errorMessages.USER_ALREADY_EXISTS, code: errorCodes.ALREADY_EXISTS };
     }
 
     const otp = await generateOTP();
     const otpExpiry = new Date(Date.now() + 1 * 60 * 1000);
     const hashedPassword = await encryptPassword(userData.password);
 
-    const emailOptions = {
-      to: userData.email,
-      subject: 'Your OTP Code',
-      html: otpTemplate(otp.toString()),
-    };
-
-    await sendEmail(emailOptions);
+    await sendEmail(otpTemplate(otp.toString(), userData.email));
 
     const user = userRepository.create({
       email: userData.email,
@@ -57,12 +52,12 @@ export const authService = {
     const user = await userRepository.findOne({ where: { email: credentials.email } });
 
     if (!user) {
-      return { error: 'User not found.', code: errorCodes.NOT_FOUND_ERROR };
+      return { error: errorMessages.USER_NOT_FOUND, code: errorCodes.NOT_FOUND_ERROR };
     }
 
     const isMatch = await comparePassword(credentials.password, user.password);
     if (!isMatch) {
-      return { error: 'Wrong password.', code: errorCodes.BAD_REQUEST };
+      return { error: errorMessages.WRONG_PASSWORD, code: errorCodes.BAD_REQUEST };
     }
 
     const token = await encrypt({ id: user.id, email: user.email });

@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { errorMessages } from './errorMessages';
 
 interface PaginatedQuery {
   page?: string;
@@ -15,7 +16,7 @@ export const paginationMiddleware = (req: Request<object, object, object, Pagina
   const pageSize = parseInt(limit, 10);
 
   if (isNaN(pageNumber) || pageNumber < 1 || isNaN(pageSize) || pageSize < 1) {
-    return res.status(400).json({ error: 'Invalid page or limit value' });
+    return res.status(400).json({ error: errorMessages.INVALID_PAGE_OR_LIMIT });
   }
 
   const offset = (pageNumber - 1) * pageSize;

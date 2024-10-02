@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { handleError, handleSuccess } from '../utils/errorHandler';
 import { errorCodes } from '../utils/errorCodes';
 import { authService } from '../services/authService';
+import { errorMessages } from '../utils/errorMessages';
 
 interface RegisterRequestBody {
   name: string;
@@ -24,7 +25,7 @@ export const registerUser = async (req: Request<object, object, RegisterRequestB
       return handleError(res, result.error, result.code);
     }
 
-    return handleSuccess(res, result, 'User registered successfully.', errorCodes.CREATED);
+    return handleSuccess(res, result, errorMessages.USER_REGISTER_SUCCESS, errorCodes.CREATED);
   } catch (error) {
     return next(error);
   }
@@ -39,7 +40,7 @@ export const loginUser = async (req: Request<object, object, LoginRequestBody>, 
       return handleError(res, result.error, result.code);
     }
 
-    return handleSuccess(res, result, 'User logged in successfully.');
+    return handleSuccess(res, result, errorMessages.USER_LOGIN_SUCCESS);
   } catch (error) {
     return next(error);
   }

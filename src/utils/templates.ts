@@ -1,4 +1,8 @@
-export const otpTemplate = (otp: string) => ` <!DOCTYPE html>
+export const otpTemplate = (otp: string, email: string) => {
+  return {
+    to: email,
+    subject: 'Your OTP Code',
+    html: ` <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -50,4 +54,6 @@ export const otpTemplate = (otp: string) => ` <!DOCTYPE html>
             </div>
         </div>
     </body>
-    </html>`;
+    </html>`,
+  };
+};
