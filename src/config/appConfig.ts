@@ -19,31 +19,33 @@ interface DBConfig {
 }
 
 interface AppConfig {
+  db: DBConfig;
+  smtp: SmtpConfig;
   port: number | undefined;
   baseUrl: string | undefined;
+  redisUrl: string | undefined;
   jwtExpiresIn: string | undefined;
   accessTokenSecret: string | undefined;
-  smtp: SmtpConfig;
-  db: DBConfig;
 }
 
 export const appConfig: AppConfig = {
-  port: process.env.PORT ? parseInt(process.env.PORT, 10) : undefined,
   baseUrl: process.env.BASE_URL,
+  redisUrl: process.env.REDIS_URL,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN,
   accessTokenSecret: process.env.ACCESS_TOKEN_SECRET,
+  port: process.env.PORT ? parseInt(process.env.PORT, 10) : undefined,
   smtp: {
     smtpHost: process.env.SMTP_HOST,
-    smtpPort: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
     smtpUser: process.env.SMTP_USER,
     smtpPass: process.env.SMTP_PASS,
+    smtpPort: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
   } as SmtpConfig,
   db: {
     dbHost: process.env.DB_HOST,
-    dbPort: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
     dbName: process.env.DB_NAME,
     dbUser: process.env.DB_USER,
     dbPass: process.env.DB_PASS,
     dbType: process.env.DB_TYPE,
+    dbPort: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432,
   } as DBConfig,
 };
