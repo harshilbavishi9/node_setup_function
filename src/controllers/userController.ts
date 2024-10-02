@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from 'express';
 import { errorCodes } from '../utils/errorCodes';
 import { userService } from '../services/userService';
 import { errorMessages } from '../utils/errorMessages';
-import { redisClient } from '../config/redisConfig';
 
 export const allUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {

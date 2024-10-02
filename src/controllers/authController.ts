@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { handleError, handleSuccess } from '../utils/errorHandler';
-import { errorCodes } from '../utils/errorCodes';
 import { authService } from '../services/authService';
-import { errorMessages } from '../utils/errorMessages';
 
 interface RegisterRequestBody {
   name: string;
