@@ -1,15 +1,14 @@
-import 'reflect-metadata';
-import express from 'express';
-import dotenv from 'dotenv';
+import './config/dbConfig';
 import cors from 'cors';
+import 'reflect-metadata';
+import dotenv from 'dotenv';
 import morgan from 'morgan';
-import { createConnection } from 'typeorm';
-import { dbConfig } from './config/dbConfig';
+import express from 'express';
 import routes from './routes';
-import { Socket, Server as SocketIOServer } from 'socket.io';
 import { Server } from 'http';
-import errorMiddleware from './middlewares/errorMiddleware';
 import { appConfig } from './config/appConfig';
+import { Socket, Server as SocketIOServer } from 'socket.io';
+import errorMiddleware from './middlewares/errorMiddleware';
 
 const app = express();
 const http = new Server(app);
@@ -33,8 +32,6 @@ app.use('/api/v1', routes);
 app.use(errorMiddleware);
 
 app.listen(appConfig.port, () => console.log('Server running on port ' + appConfig.port));
-
-createConnection(dbConfig).then(() => console.log('DB Connected.'));
 
 const io = new SocketIOServer(http);
 

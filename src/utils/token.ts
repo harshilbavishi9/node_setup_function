@@ -1,10 +1,10 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import { User } from '../entities/userEntity';
-import { getRepository } from 'typeorm';
 import { errorCodes } from './errorCodes';
 import { errorMessages } from './errorMessages';
 import { appConfig } from '../config/appConfig';
+import { dataSource } from '../config/dbConfig';
 
 const accessTokenSecret: string = appConfig.accessTokenSecret as string;
 const expiresIn: string = appConfig.jwtExpiresIn as string;
@@ -59,7 +59,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     req.user = decoded;
 
     const id = decoded?.payload?.id;
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     const user = await userRepository.findOne({ where: { id } });
 
     if (!user) {

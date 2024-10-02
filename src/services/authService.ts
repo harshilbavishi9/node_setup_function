@@ -1,4 +1,3 @@
-import { getRepository } from 'typeorm';
 import { encrypt } from '../utils/token';
 import { generateOTP } from '../utils/otp';
 import { Otp } from '../entities/otpEntity';
@@ -8,11 +7,12 @@ import { otpTemplate } from '../utils/templates';
 import { errorCodes } from '../utils/errorCodes';
 import { errorMessages } from '../utils/errorMessages';
 import { encryptPassword, comparePassword } from '../utils/password';
+import { dataSource } from '../config/dbConfig';
 
 export const authService = {
   async registerUser(userData: { name: string; email: string; password: string }) {
-    const userRepository = getRepository(User);
-    const otpRepository = getRepository(Otp);
+    const userRepository = dataSource.getRepository(User);
+    const otpRepository = dataSource.getRepository(Otp);
 
     const existingUser = await userRepository.findOne({ where: { email: userData.email } });
     if (existingUser) {
@@ -48,7 +48,7 @@ export const authService = {
   },
 
   async loginUser(credentials: { email: string; password: string }) {
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     const user = await userRepository.findOne({ where: { email: credentials.email } });
 
     if (!user) {

@@ -1,7 +1,7 @@
-import { ConnectionOptions } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import { appConfig } from './appConfig';
 
-export const dbConfig: ConnectionOptions = {
+export const dbConfig: DataSourceOptions = {
   type: appConfig.db.dbType,
   host: appConfig.db.dbHost,
   port: appConfig.db.dbPort,
@@ -12,3 +12,14 @@ export const dbConfig: ConnectionOptions = {
   logging: false,
   entities: ['src/entities/**/*.ts'],
 };
+
+export const dataSource = new DataSource(dbConfig);
+
+dataSource
+  .initialize()
+  .then(() => {
+    console.log('DB Connected.');
+  })
+  .catch(error => {
+    console.error('Error connecting to the database', error);
+  });
