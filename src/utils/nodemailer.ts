@@ -1,6 +1,7 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
 import { errorMessages } from './errorMessages';
+import { appConfig } from '../config/appConfig';
 
 interface EmailOptions {
   to: string;
@@ -12,8 +13,8 @@ interface EmailOptions {
 const createTransporter = (): Transporter => {
   return nodemailer.createTransport(
     smtpTransport({
-      host: process.env.SMTP_HOST,
-      port: +(process.env.SMTP_PORT || 587),
+      host: appConfig.smtp.smtpHost,
+      port: +appConfig.smtp.smtpPort,
       secure: false,
       requireTLS: true,
       tls: {
@@ -21,8 +22,8 @@ const createTransporter = (): Transporter => {
       },
       auth: {
         type: 'OAuth2',
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: appConfig.smtp.smtpUser,
+        pass: appConfig.smtp.smtpPass,
       },
     })
   );
@@ -32,7 +33,7 @@ export const sendEmail = async (options: EmailOptions): Promise<void> => {
   const transporter = createTransporter();
 
   const mailOptions = {
-    from: process.env.SMTP_USER,
+    from: appConfig.smtp.smtpUser,
     ...options,
   };
 

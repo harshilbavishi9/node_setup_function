@@ -9,6 +9,7 @@ import routes from './routes';
 import { Socket, Server as SocketIOServer } from 'socket.io';
 import { Server } from 'http';
 import errorMiddleware from './middlewares/errorMiddleware';
+import { appConfig } from './config/appConfig';
 
 const app = express();
 const http = new Server(app);
@@ -31,7 +32,7 @@ app.use('/upload', express.static('upload'));
 app.use('/api/v1', routes);
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT, () => console.log('Server running on port ' + process.env.PORT));
+app.listen(appConfig.port, () => console.log('Server running on port ' + appConfig.port));
 
 createConnection(dbConfig).then(() => console.log('DB Connected.'));
 

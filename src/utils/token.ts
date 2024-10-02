@@ -4,9 +4,10 @@ import { User } from '../entities/userEntity';
 import { getRepository } from 'typeorm';
 import { errorCodes } from './errorCodes';
 import { errorMessages } from './errorMessages';
+import { appConfig } from '../config/appConfig';
 
-const accessTokenSecret: string = (process.env.PORT || 'vjft84gifgnierwr83rsnvsijerhwe9ureth34fn') as string;
-const expiresIn: string = (process.env.EXPIRES_IN || '1h') as string;
+const accessTokenSecret: string = appConfig.accessTokenSecret as string;
+const expiresIn: string = appConfig.jwtExpiresIn as string;
 
 declare module 'express' {
   interface Request {

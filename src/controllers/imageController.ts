@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCodes } from '../utils/errorCodes';
 import { handleError, handleSuccess } from '../utils/errorHandler';
+import { appConfig } from '../config/appConfig';
 
 export const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = appConfig.baseUrl;
 
   try {
     if (req.file) {
@@ -16,7 +17,7 @@ export const uploadImage = async (req: Request, res: Response, next: NextFunctio
 };
 
 export const uploadImages = async (req: Request, res: Response, next: NextFunction) => {
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = appConfig.baseUrl;
 
   try {
     if (req.files && Array.isArray(req.files) && req.files.length > 0) {
