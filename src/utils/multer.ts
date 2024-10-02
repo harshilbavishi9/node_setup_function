@@ -19,8 +19,8 @@ const storage: StorageEngine = multer.diskStorage({
   },
 });
 
-
-const fileFilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
   const isValid = allowedTypes.test(path.extname(file.originalname).toLowerCase()) && allowedTypes.test(file.mimetype);
 
   if (isValid) {
