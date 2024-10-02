@@ -21,11 +21,11 @@ export const registerUser = async (req: Request<object, object, RegisterRequestB
     const userData = req.body;
     const result = await authService.registerUser(userData);
 
-    if (result.error) {
-      return handleError(res, result.error, result.code);
+    if (!result.success) {
+      return handleError(res, result.message, result.code);
     }
 
-    return handleSuccess(res, result, errorMessages.USER_REGISTER_SUCCESS, errorCodes.CREATED);
+    return handleSuccess(res, result.data, result.message, result.code);
   } catch (error) {
     return next(error);
   }
@@ -36,11 +36,11 @@ export const loginUser = async (req: Request<object, object, LoginRequestBody>, 
     const credentials = req.body;
     const result = await authService.loginUser(credentials);
 
-    if (result.error) {
-      return handleError(res, result.error, result.code);
+    if (!result.success) {
+      return handleError(res, result.message, result.code);
     }
 
-    return handleSuccess(res, result, errorMessages.USER_LOGIN_SUCCESS);
+    return handleSuccess(res, result.data, result.message, result.code);
   } catch (error) {
     return next(error);
   }

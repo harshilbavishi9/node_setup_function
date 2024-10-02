@@ -16,7 +16,7 @@ export const authService = {
 
     const existingUser = await userRepository.findOne({ where: { email: userData.email } });
     if (existingUser) {
-      return { error: errorMessages.USER_ALREADY_EXISTS, code: errorCodes.ALREADY_EXISTS };
+      return { message: errorMessages.USER_ALREADY_EXISTS, success: false, code: errorCodes.ALREADY_EXISTS, data: null };
     }
 
     const otp = await generateOTP();
@@ -39,11 +39,16 @@ export const authService = {
     });
 
     return {
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      created_at: newUser.created_at,
-      updated_at: newUser.updated_at,
+      message: errorMessages.USER_REGISTER_SUCCESS,
+      code: errorCodes.CREATED,
+      success: true,
+      data: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        created_at: newUser.created_at,
+        updated_at: newUser.updated_at,
+      },
     };
   },
 
@@ -52,24 +57,29 @@ export const authService = {
     const user = await userRepository.findOne({ where: { email: credentials.email } });
 
     if (!user) {
-      return { error: errorMessages.USER_NOT_FOUND, code: errorCodes.NOT_FOUND_ERROR };
+      return { message: errorMessages.USER_NOT_FOUND, success: false, code: errorCodes.NOT_FOUND_ERROR, data: null };
     }
 
     const isMatch = await comparePassword(credentials.password, user.password);
     if (!isMatch) {
-      return { error: errorMessages.WRONG_PASSWORD, code: errorCodes.BAD_REQUEST };
+      return { message: errorMessages.WRONG_PASSWORD, success: false, code: errorCodes.BAD_REQUEST, data: null };
     }
 
     const token = await encrypt({ id: user.id, email: user.email });
     await userRepository.update(user.id, { token });
 
     return {
-      token,
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      created_at: user.created_at,
-      updated_at: user.updated_at,
+      message: errorMessages.USER_LOGIN_SUCCESS,
+      code: errorCodes.SUCCESS,
+      success: true,
+      data: {
+        token,
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+      },
     };
   },
 };
