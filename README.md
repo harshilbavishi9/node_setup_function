@@ -46,8 +46,6 @@ Before you begin, ensure you have the following installed:
 
 2. Env:
 
-3. Clone the repository:
-
    ```bash
    PORT=<your-port>
    DB_TYPE=<database-type>
@@ -64,5 +62,4 @@ Before you begin, ensure you have the following installed:
    SMTP_PASS=<smtp-password>
    BASE_URL=<base-url>
    REDIS_URL=<redis-url>
-
    ```
