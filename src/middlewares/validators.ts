@@ -15,3 +15,5 @@ export const loginUserValidation = [
   check('password').isLength({ min: 6 }).withMessage(validationMessages.password.minLength).notEmpty().withMessage(validationMessages.password.required),
   validateRequest,
 ];
+
+export const updateUserValidation = [check('name').isLength({ min: 3 }).withMessage(validationMessages.name.minLength).notEmpty().withMessage(validationMessages.name.required), validateRequest];

@@ -4,7 +4,11 @@ import { dataSource } from '../config/dbConfig';
 export const userService = {
   async getAllUsers() {
     const userRepository = dataSource.getRepository(User);
-    return await userRepository.find();
+    return await userRepository.find({
+      order: {
+        id: 'DESC',
+      },
+    });
   },
 
   async getUserById(id: number) {

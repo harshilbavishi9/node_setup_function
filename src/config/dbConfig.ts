@@ -18,7 +18,7 @@ export const dataSource = new DataSource(dbConfig);
 dataSource
   .initialize()
   .then(() => {
-    console.log('DB Connected.');
+    console.log('Postgres connected.');
   })
   .catch(error => {
     console.error('Error connecting to the database', error);

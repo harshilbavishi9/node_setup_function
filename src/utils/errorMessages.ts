@@ -6,6 +6,8 @@ export const errorMessages = {
   SOMETHING_WENT_WRONG: 'Something went wrong!',
   USER_FETCH_SUCCESS: 'User fetched successfully.',
   UNAUTHORIZED_ACCESS: 'Wrong authorization token.',
+  USER_UPDATE_SUCCESS: 'User updated successfully.',
+  USER_DELETE_SUCCESS: 'User deleted successfully.',
   USERS_FETCH_SUCCESS: 'Users fetched successfully.',
   USER_LOGIN_SUCCESS: 'User logged in successfully.',
   INVALID_PAGE_OR_LIMIT: 'Invalid page or limit value',

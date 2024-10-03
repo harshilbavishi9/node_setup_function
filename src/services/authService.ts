@@ -8,6 +8,7 @@ import { errorCodes } from '../utils/errorCodes';
 import { errorMessages } from '../utils/errorMessages';
 import { encryptPassword, comparePassword } from '../utils/password';
 import { dataSource } from '../config/dbConfig';
+import { redisClient } from '../config/redisConfig';
 
 export const authService = {
   async registerUser(userData: { name: string; email: string; password: string }) {
@@ -37,6 +38,8 @@ export const authService = {
       userid: newUser,
       expire_at: otpExpiry,
     });
+
+    await redisClient.del('all_users');
 
     return {
       message: errorMessages.USER_REGISTER_SUCCESS,
