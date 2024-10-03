@@ -1,7 +1,6 @@
 import cors from 'cors';
 import 'reflect-metadata';
 import './config/dbConfig';
-import dotenv from 'dotenv';
 import morgan from 'morgan';
 import './config/redisConfig';
 import express from 'express';
@@ -14,8 +13,6 @@ import { Socket, Server as SocketIOServer } from 'socket.io';
 const app = express();
 const http = new Server(app);
 const io = new SocketIOServer(http);
-
-dotenv.config();
 
 app.use(
   cors({
