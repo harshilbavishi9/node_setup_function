@@ -44,20 +44,25 @@ Before you begin, ensure you have the following installed:
    cd your-project-name
    ```
 
-# Env
+2. Env:
 
-PORT=<your-port>
-DB_TYPE=<database-type>
-DB_HOST=<database-host>
-DB_PORT=<database-port>
-DB_USER=<database-user>
-DB_PASS=<database-password>
-DB_NAME=<database-name>
-JWT_EXPIRES_IN=<jwt-expiration-time>
-ACCESS_TOKEN_SECRET=<your-access-token-secret>
-SMTP_HOST=<smtp-host>
-SMTP_PORT=<smtp-port>
-SMTP_USER=<smtp-user>
-SMTP_PASS=<smtp-password>
-BASE_URL=<base-url>
-REDIS_URL=<redis-url>
+3. Clone the repository:
+
+   ```bash
+   PORT=<your-port>
+   DB_TYPE=<database-type>
+   DB_HOST=<database-host>
+   DB_PORT=<database-port>
+   DB_USER=<database-user>
+   DB_PASS=<database-password>
+   DB_NAME=<database-name>
+   JWT_EXPIRES_IN=<jwt-expiration-time>
+   ACCESS_TOKEN_SECRET=<your-access-token-secret>
+   SMTP_HOST=<smtp-host>
+   SMTP_PORT=<smtp-port>
+   SMTP_USER=<smtp-user>
+   SMTP_PASS=<smtp-password>
+   BASE_URL=<base-url>
+   REDIS_URL=<redis-url>
+
+   ```
