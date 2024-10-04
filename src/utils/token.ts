@@ -1,10 +1,11 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { NextFunction, Request, Response } from 'express';
-import { User } from '../entities/userEntity';
 import { errorCodes } from './errorCodes';
+import { handleError } from './errorHandler';
+import { User } from '../entities/userEntity';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { errorMessages } from './errorMessages';
 import { appConfig } from '../config/appConfig';
 import { dataSource } from '../config/dbConfig';
+import { NextFunction, Request, Response } from 'express';
 
 const accessTokenSecret: string = appConfig.accessTokenSecret as string;
 const expiresIn: string = appConfig.jwtExpiresIn as string;
@@ -47,13 +48,13 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     token = token?.startsWith('Bearer ') ? token.slice(7) : token;
 
     if (!token) {
-      return res.status(errorCodes.UNAUTHORIZED_ACCESS).json({ message: errorMessages.AUTHORIZATION_TOKEN_MISSING });
+      return handleError(res, errorMessages.AUTHORIZATION_TOKEN_MISSING, errorCodes.UNAUTHORIZED_ACCESS);
     }
 
     const decoded = await decrypt(token);
 
     if (typeof decoded === 'string') {
-      return res.status(errorCodes.UNAUTHORIZED_ACCESS).json({ message: decoded });
+      return handleError(res, decoded, errorCodes.UNAUTHORIZED_ACCESS);
     }
 
     req.user = decoded;
@@ -63,12 +64,12 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     const user = await userRepository.findOne({ where: { id } });
 
     if (!user) {
-      return res.status(errorCodes.UNAUTHORIZED_ACCESS).json({ message: errorMessages.UNAUTHORIZED_ACCESS });
+      return handleError(res, errorMessages.UNAUTHORIZED_ACCESS, errorCodes.UNAUTHORIZED_ACCESS);
     }
 
     next();
   } catch (error) {
     console.log(error);
-    return res.status(errorCodes.SERVER_ERROR).json({ message: errorMessages.UNAUTHORIZED_ACCESS });
+    return handleError(res, errorMessages.UNAUTHORIZED_ACCESS, errorCodes.SERVER_ERROR);
   }
 };

@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import { validationResult } from 'express-validator';
 import { errorCodes } from '../utils/errorCodes';
+import { handleError } from '../utils/errorHandler';
+import { validationResult } from 'express-validator';
+import { Request, Response, NextFunction } from 'express';
 
 export const validateRequest = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -9,7 +10,8 @@ export const validateRequest = (req: Request, res: Response, next: NextFunction)
       .array()
       .map(err => err.msg)
       .join(' ');
-    return res.status(errorCodes.BAD_REQUEST).json({ message: errorMessages });
+
+    return handleError(res, errorMessages, errorCodes.BAD_REQUEST);
   }
   next();
 };

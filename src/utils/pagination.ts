@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { errorCodes } from './errorCodes';
+import { handleError } from './errorHandler';
 import { errorMessages } from './errorMessages';
+import { Request, Response, NextFunction } from 'express';
 
 interface PaginatedQuery {
   page?: string;
@@ -16,7 +18,7 @@ export const paginationMiddleware = (req: Request<object, object, object, Pagina
   const pageSize = parseInt(limit, 10);
 
   if (isNaN(pageNumber) || pageNumber < 1 || isNaN(pageSize) || pageSize < 1) {
-    return res.status(400).json({ error: errorMessages.INVALID_PAGE_OR_LIMIT });
+    return handleError(res, errorMessages.INVALID_PAGE_OR_LIMIT, errorCodes.SERVER_ERROR);
   }
 
   const offset = (pageNumber - 1) * pageSize;
