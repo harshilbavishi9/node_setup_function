@@ -1,7 +1,7 @@
-import nodemailer, { Transporter } from 'nodemailer';
-import smtpTransport from 'nodemailer-smtp-transport';
 import { errorMessages } from './errorMessages';
 import { appConfig } from '../config/appConfig';
+import nodemailer, { Transporter } from 'nodemailer';
+import smtpTransport from 'nodemailer-smtp-transport';
 
 interface EmailOptions {
   to: string;
