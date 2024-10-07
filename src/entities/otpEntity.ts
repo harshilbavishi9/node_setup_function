@@ -1,8 +1,9 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { User } from './userEntity';
+import { BaseEntity } from './baseEntity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity('otps')
-export class Otp {
+export class Otp extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,14 +16,4 @@ export class Otp {
   @OneToOne(() => User, user => user.id)
   @JoinColumn({ name: 'userid' })
   userid: User;
-
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
-  })
-  updated_at: Date;
 }
