@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Request } from 'express';
 import multer, { StorageEngine } from 'multer';
-import { errorMessages } from './errorMessages';
+import { resMessages } from './resMessages';
 
 if (!fs.existsSync('./upload')) {
   fs.mkdirSync('./upload');
@@ -27,7 +27,7 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
   if (isValid) {
     cb(null, true);
   } else {
-    cb(new Error(errorMessages.INVALID_FILE), false);
+    cb(new Error(resMessages.INVALID_FILE), false);
   }
 };
 

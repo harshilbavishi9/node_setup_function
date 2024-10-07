@@ -2,7 +2,7 @@ import { errorCodes } from './errorCodes';
 import { handleError } from './errorHandler';
 import { User } from '../entities/userEntity';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { errorMessages } from './errorMessages';
+import { resMessages } from './resMessages';
 import { appConfig } from '../config/appConfig';
 import { dataSource } from '../config/dbConfig';
 import { NextFunction, Request, Response } from 'express';
@@ -48,7 +48,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     token = token?.startsWith('Bearer ') ? token.slice(7) : token;
 
     if (!token) {
-      return handleError(res, errorMessages.AUTHORIZATION_TOKEN_MISSING, errorCodes.UNAUTHORIZED_ACCESS);
+      return handleError(res, resMessages.AUTHORIZATION_TOKEN_MISSING, errorCodes.UNAUTHORIZED_ACCESS);
     }
 
     const decoded = await decrypt(token);
@@ -64,12 +64,12 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     const user = await userRepository.findOne({ where: { id } });
 
     if (!user) {
-      return handleError(res, errorMessages.UNAUTHORIZED_ACCESS, errorCodes.UNAUTHORIZED_ACCESS);
+      return handleError(res, resMessages.UNAUTHORIZED_ACCESS, errorCodes.UNAUTHORIZED_ACCESS);
     }
 
     next();
   } catch (error) {
     console.log(error);
-    return handleError(res, errorMessages.UNAUTHORIZED_ACCESS, errorCodes.SERVER_ERROR);
+    return handleError(res, resMessages.UNAUTHORIZED_ACCESS, errorCodes.SERVER_ERROR);
   }
 };

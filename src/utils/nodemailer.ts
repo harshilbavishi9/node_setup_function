@@ -1,4 +1,4 @@
-import { errorMessages } from './errorMessages';
+import { resMessages } from './resMessages';
 import { appConfig } from '../config/appConfig';
 import nodemailer, { Transporter } from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
@@ -41,6 +41,6 @@ export const sendEmail = async (options: EmailOptions): Promise<void> => {
     await transporter.sendMail(mailOptions);
   } catch (error) {
     console.log(error);
-    throw new Error(errorMessages.FAILED_TO_SEND_EMAIL);
+    throw new Error(resMessages.FAILED_TO_SEND_EMAIL);
   }
 };

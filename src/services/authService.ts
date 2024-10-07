@@ -5,7 +5,7 @@ import { User } from '../entities/userEntity';
 import { sendEmail } from '../utils/nodemailer';
 import { otpTemplate } from '../utils/templates';
 import { errorCodes } from '../utils/errorCodes';
-import { errorMessages } from '../utils/errorMessages';
+import { resMessages } from '../utils/resMessages';
 import { encryptPassword, comparePassword } from '../utils/password';
 import { dataSource } from '../config/dbConfig';
 import { redisClient } from '../config/redisConfig';
@@ -17,7 +17,7 @@ export const authService = {
 
     const existingUser = await userRepository.findOne({ where: { email: userData.email } });
     if (existingUser) {
-      return { message: errorMessages.USER_ALREADY_EXISTS, success: false, code: errorCodes.ALREADY_EXISTS, data: null };
+      return { message: resMessages.USER_ALREADY_EXISTS, success: false, code: errorCodes.ALREADY_EXISTS, data: null };
     }
 
     const otp = await generateOTP();
@@ -42,7 +42,7 @@ export const authService = {
     await redisClient.del('all_users');
 
     return {
-      message: errorMessages.USER_REGISTER_SUCCESS,
+      message: resMessages.USER_REGISTER_SUCCESS,
       code: errorCodes.CREATED,
       success: true,
       data: {
@@ -60,19 +60,19 @@ export const authService = {
     const user = await userRepository.findOne({ where: { email: credentials.email } });
 
     if (!user) {
-      return { message: errorMessages.USER_NOT_FOUND, success: false, code: errorCodes.NOT_FOUND_ERROR, data: null };
+      return { message: resMessages.USER_NOT_FOUND, success: false, code: errorCodes.NOT_FOUND_ERROR, data: null };
     }
 
     const isMatch = await comparePassword(credentials.password, user.password);
     if (!isMatch) {
-      return { message: errorMessages.WRONG_PASSWORD, success: false, code: errorCodes.BAD_REQUEST, data: null };
+      return { message: resMessages.WRONG_PASSWORD, success: false, code: errorCodes.BAD_REQUEST, data: null };
     }
 
     const token = await encrypt({ id: user.id, email: user.email });
     await userRepository.update(user.id, { token });
 
     return {
-      message: errorMessages.USER_LOGIN_SUCCESS,
+      message: resMessages.USER_LOGIN_SUCCESS,
       code: errorCodes.SUCCESS,
       success: true,
       data: {

@@ -7,6 +7,7 @@ import express from 'express';
 import routes from './routes';
 import { Server } from 'http';
 import { appConfig } from './config/appConfig';
+import { resMessages } from './utils/resMessages';
 import errorMiddleware from './middlewares/errorMiddleware';
 import { Socket, Server as SocketIOServer } from 'socket.io';
 
@@ -30,13 +31,13 @@ app.use('/upload', express.static('upload'));
 app.use('/api/v1', routes);
 app.use(errorMiddleware);
 
-app.listen(appConfig.port, () => console.log('Server running on port ' + appConfig.port + '.'));
+app.listen(appConfig.port, () => console.log(resMessages.SERVER_RUNNING + appConfig.port + '.'));
 
 io.on('connection', (socket: Socket) => {
-  console.log('A user connected.');
+  console.log(resMessages.USER_CONNECTED);
 
   socket.on('disconnect', () => {
-    console.log('A user disconnected.');
+    console.log(resMessages.USER_DISCONNECTED);
   });
 });
 
