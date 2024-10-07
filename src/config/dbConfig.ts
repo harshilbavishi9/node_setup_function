@@ -1,5 +1,5 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
 import { appConfig } from './appConfig';
+import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const dbConfig: DataSourceOptions = {
   type: appConfig.db.dbType,

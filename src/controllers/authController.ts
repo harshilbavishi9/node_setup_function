@@ -1,6 +1,6 @@
+import { authService } from '../services/authService';
 import { NextFunction, Request, Response } from 'express';
 import { handleError, handleSuccess } from '../utils/errorHandler';
-import { authService } from '../services/authService';
 
 interface RegisterRequestBody {
   name: string;
