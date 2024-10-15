@@ -1,5 +1,6 @@
 import { db } from '../../cred.json';
 import logger from '../utils/winston';
+import { resMessages } from '../utils/resMessages';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const dbConfig: DataSourceOptions = {
@@ -19,7 +20,7 @@ export const dataSource = new DataSource(dbConfig);
 dataSource
   .initialize()
   .then(() => {
-    logger.info('Postgres connected.');
+    logger.info(resMessages.POSTGRES_CONNECTED);
   })
   .catch(error => {
     logger.info('Error connecting to the database', error);
