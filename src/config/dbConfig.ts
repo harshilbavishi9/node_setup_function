@@ -1,13 +1,13 @@
-import { appConfig } from './appConfig';
+import { db } from '../../cred.json';
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const dbConfig: DataSourceOptions = {
-  type: appConfig.db.dbType,
-  host: appConfig.db.dbHost,
-  port: appConfig.db.dbPort,
-  username: appConfig.db.dbUser,
-  password: appConfig.db.dbPass,
-  database: appConfig.db.dbName,
+  type: 'postgres',
+  host: db.dbHost,
+  port: db.dbPort,
+  username: db.dbUser,
+  password: db.dbPass,
+  database: db.dbName,
   synchronize: true,
   logging: false,
   entities: ['src/entities/**/*.ts'],

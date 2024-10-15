@@ -1,8 +1,8 @@
 import { createClient } from 'redis';
-import { appConfig } from './appConfig';
+import { redisUrl } from '../../cred.json';
 
 export const redisClient = createClient({
-  url: appConfig.redisUrl,
+  url: redisUrl,
 });
 
 redisClient

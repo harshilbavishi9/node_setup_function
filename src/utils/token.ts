@@ -1,14 +1,11 @@
 import { errorCodes } from './errorCodes';
+import { resMessages } from './resMessages';
 import { handleError } from './errorHandler';
 import { User } from '../entities/userEntity';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { resMessages } from './resMessages';
-import { appConfig } from '../config/appConfig';
 import { dataSource } from '../config/dbConfig';
 import { NextFunction, Request, Response } from 'express';
-
-const accessTokenSecret: string = appConfig.accessTokenSecret as string;
-const expiresIn: string = appConfig.jwtExpiresIn as string;
+import { accessTokenSecret, jwtExpiresIn } from '../../cred.json';
 
 declare module 'express' {
   interface Request {
@@ -20,7 +17,7 @@ declare module 'express' {
 
 export const encrypt = (payload: object): Promise<string> => {
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, accessTokenSecret, { expiresIn: expiresIn }, (err: Error | null, token: string | undefined) => {
+    jwt.sign(payload, accessTokenSecret, { expiresIn: jwtExpiresIn }, (err: Error | null, token: string | undefined) => {
       if (err) {
         return reject(err);
       }

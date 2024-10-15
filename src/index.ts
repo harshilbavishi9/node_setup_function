@@ -6,9 +6,9 @@ import './config/redisConfig';
 import express from 'express';
 import routes from './routes';
 import { Server } from 'http';
-import { verifyToken } from './utils/token';
+import { port } from '../cred.json';
 import authRoutes from './routes/auth';
-import { appConfig } from './config/appConfig';
+import { verifyToken } from './utils/token';
 import { resMessages } from './utils/resMessages';
 import errorMiddleware from './middlewares/errorMiddleware';
 import { Socket, Server as SocketIOServer } from 'socket.io';
@@ -34,7 +34,7 @@ app.use('/api/v1', verifyToken, routes);
 app.use('/api/v1/auth', authRoutes);
 app.use(errorMiddleware);
 
-app.listen(appConfig.port, () => console.log(resMessages.SERVER_RUNNING + appConfig.port + '.'));
+app.listen(port, () => console.log(resMessages.SERVER_RUNNING + port + '.'));
 
 io.on('connection', (socket: Socket) => {
   console.log(resMessages.USER_CONNECTED);
@@ -84,7 +84,7 @@ io.on('connection', (socket: Socket) => {
 // touch src/services/{authService.ts,useService.ts} && \
 // touch src/entities/{baseEntity.ts,userEntity.ts} && \
 // touch src/middlewares/{errorMiddleware.ts,validateRequest.ts,validators.ts} && \
-// touch src/config/{dbConfig.ts,appConfig.ts} && \
+// touch src/config/{dbConfig.ts} && \
 // touch src/utils/{errorCodes.ts,resMessages.ts,pagination.ts,errorHandler.ts,token.ts,multer.ts,otp.ts,password.ts,nodemailer.ts,validationMessages.ts,templates.ts} && \
 // echo '{ "semi": true, "singleQuote": true, "trailingComma": "es5", "tabWidth": 2, "printWidth": 300, "arrowParens": "avoid" }' > .prettierrc && \
 // touch .eslintrc.json .gitignore .env && \
