@@ -1,6 +1,6 @@
 import express from 'express';
-import { updateUserValidation } from '../../middlewares/validators';
-import { allUsers, deleteUser, getUser, updateUser } from '../../controllers/userController';
+import { updateUserValidation } from '../middlewares/validators';
+import { allUsers, deleteUser, getUser, updateUser } from '../controllers/userController';
 
 const routes = express.Router();
 

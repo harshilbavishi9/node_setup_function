@@ -6,6 +6,8 @@ import './config/redisConfig';
 import express from 'express';
 import routes from './routes';
 import { Server } from 'http';
+import { verifyToken } from './utils/token';
+import authRoutes from './routes/auth';
 import { appConfig } from './config/appConfig';
 import { resMessages } from './utils/resMessages';
 import errorMiddleware from './middlewares/errorMiddleware';
@@ -28,7 +30,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/upload', express.static('upload'));
 
-app.use('/api/v1', routes);
+app.use('/api/v1', verifyToken, routes);
+app.use('/api/v1/auth', authRoutes);
 app.use(errorMiddleware);
 
 app.listen(appConfig.port, () => console.log(resMessages.SERVER_RUNNING + appConfig.port + '.'));
