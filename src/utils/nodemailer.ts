@@ -1,5 +1,5 @@
-import { resMessages } from './resMessages';
 import { smtp } from '../../cred.json';
+import { resMessages } from './resMessages';
 import nodemailer, { Transporter } from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
 

@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { Request } from 'express';
-import multer, { StorageEngine } from 'multer';
 import { resMessages } from './resMessages';
+import multer, { StorageEngine } from 'multer';
 
 if (!fs.existsSync('./upload')) {
   fs.mkdirSync('./upload');

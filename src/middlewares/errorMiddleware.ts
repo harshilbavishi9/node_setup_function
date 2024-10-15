@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { errorCodes } from '../utils/errorCodes';
-import { handleError } from '../utils/errorHandler';
 import { resMessages } from '../utils/resMessages';
+import { handleError } from '../utils/errorHandler';
 
 interface CustomError extends Error {
   status?: number;

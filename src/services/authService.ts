@@ -3,12 +3,12 @@ import { generateOTP } from '../utils/otp';
 import { Otp } from '../entities/otpEntity';
 import { User } from '../entities/userEntity';
 import { sendEmail } from '../utils/nodemailer';
+import { dataSource } from '../config/dbConfig';
 import { otpTemplate } from '../utils/templates';
 import { errorCodes } from '../utils/errorCodes';
 import { resMessages } from '../utils/resMessages';
-import { encryptPassword, comparePassword } from '../utils/password';
-import { dataSource } from '../config/dbConfig';
 import { redisClient } from '../config/redisConfig';
+import { encryptPassword, comparePassword } from '../utils/password';
 
 export const authService = {
   async registerUser(userData: { name: string; email: string; password: string }) {

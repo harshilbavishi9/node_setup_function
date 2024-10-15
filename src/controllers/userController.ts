@@ -1,7 +1,7 @@
 import { errorCodes } from '../utils/errorCodes';
+import { resMessages } from '../utils/resMessages';
 import { redisClient } from '../config/redisConfig';
 import { userService } from '../services/userService';
-import { resMessages } from '../utils/resMessages';
 import { Request, Response, NextFunction } from 'express';
 import { handleError, handleSuccess } from '../utils/errorHandler';
 

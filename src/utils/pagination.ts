@@ -1,6 +1,6 @@
 import { errorCodes } from './errorCodes';
-import { handleError } from './errorHandler';
 import { resMessages } from './resMessages';
+import { handleError } from './errorHandler';
 import { Request, Response, NextFunction } from 'express';
 
 interface PaginatedQuery {
