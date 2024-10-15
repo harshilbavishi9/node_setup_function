@@ -1,3 +1,4 @@
+import logger from './winston';
 import { smtp } from '../../cred.json';
 import { resMessages } from './resMessages';
 import nodemailer, { Transporter } from 'nodemailer';
@@ -40,7 +41,7 @@ export const sendEmail = async (options: EmailOptions): Promise<void> => {
   try {
     await transporter.sendMail(mailOptions);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     throw new Error(resMessages.FAILED_TO_SEND_EMAIL);
   }
 };

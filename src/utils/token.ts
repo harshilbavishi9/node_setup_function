@@ -1,3 +1,4 @@
+import logger from './winston';
 import { errorCodes } from './errorCodes';
 import { resMessages } from './resMessages';
 import { handleError } from './errorHandler';
@@ -66,7 +67,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
 
     next();
   } catch (error) {
-    console.log(error);
+    logger.error(error);
     return handleError(res, resMessages.UNAUTHORIZED_ACCESS, errorCodes.SERVER_ERROR);
   }
 };

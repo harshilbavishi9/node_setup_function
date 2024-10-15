@@ -7,6 +7,7 @@ import express from 'express';
 import routes from './routes';
 import { Server } from 'http';
 import { port } from '../cred.json';
+import logger from './utils/winston';
 import authRoutes from './routes/auth';
 import { verifyToken } from './utils/token';
 import { resMessages } from './utils/resMessages';
@@ -34,13 +35,13 @@ app.use('/api/v1', verifyToken, routes);
 app.use('/api/v1/auth', authRoutes);
 app.use(errorMiddleware);
 
-app.listen(port, () => console.log(resMessages.SERVER_RUNNING + port + '.'));
+app.listen(port, () => logger.info(resMessages.SERVER_RUNNING + port + '.'));
 
 io.on('connection', (socket: Socket) => {
-  console.log(resMessages.USER_CONNECTED);
+  logger.info(resMessages.USER_CONNECTED);
 
   socket.on('disconnect', () => {
-    console.log(resMessages.USER_DISCONNECTED);
+    logger.info(resMessages.USER_DISCONNECTED);
   });
 });
 

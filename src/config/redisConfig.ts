@@ -1,4 +1,5 @@
 import { createClient } from 'redis';
+import logger from '../utils/winston';
 import { redisUrl } from '../../cred.json';
 
 export const redisClient = createClient({
@@ -7,5 +8,5 @@ export const redisClient = createClient({
 
 redisClient
   .connect()
-  .then(() => console.log('Redis connected.'))
-  .catch(err => console.error('Redis connection error.', err));
+  .then(() => logger.info('Redis connected.'))
+  .catch(err => logger.error('Redis connection error.', err));
