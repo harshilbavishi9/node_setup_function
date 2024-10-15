@@ -44,6 +44,8 @@ io.on('connection', (socket: Socket) => {
   });
 });
 
+// cred.json
+
 // {
 //   "baseUrl": "http://localhost:8080",
 //   "redisUrl": "redis://127.0.0.1:6379",
