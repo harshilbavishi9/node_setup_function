@@ -87,7 +87,7 @@ io.on('connection', (socket: Socket) => {
 // touch src/config/{dbConfig.ts} && \
 // touch src/utils/{errorCodes.ts,resMessages.ts,pagination.ts,errorHandler.ts,token.ts,multer.ts,otp.ts,password.ts,nodemailer.ts,validationMessages.ts,templates.ts} && \
 // echo '{ "semi": true, "singleQuote": true, "trailingComma": "es5", "tabWidth": 2, "printWidth": 300, "arrowParens": "avoid" }' > .prettierrc && \
-// touch .eslintrc.json .gitignore .env && \
+// touch .eslintrc.json .gitignore && \
 // npm run prepare && \
 // mkdir -p .husky && touch .husky/pre-commit && \
 // chmod +x .husky/pre-commit
